@@ -1,0 +1,32 @@
+[package]
+name = "cargo-uefi-runner"
+description = "A tool for running and testing UEFI project."
+version = "0.1.0"
+keywords = ["uefi", "runner", "osdev", "qemu"]
+license = "MIT"
+authors = ["Ko-ichi MAKITA <kmakita13714@gmail.com>"]
+repository = "https://github.com/kmakita13714/cargo-uefi-runner"
+homepage = "https://github.com/kmakita13714/cargo-uefi-runner"
+edition = "2021"
+
+[dependencies]
+anyhow = "1.0.98"
+cargo_metadata = "0.20.0"
+clap = "4.5.40"
+toml = "0.8.23"
+wait-timeout = "0.2.1"
+
+[[bin]]
+name = "uefi-runner"
+path = "src/main.rs"
+
+
+[package.metadata.uefi-runner]
+run-args = [
+    "-global", "isa-debugcon.iobase=0x402",
+    "-device", "isa-debug-exit,iobase=0xf4,iosize=0x04",
+    "-serial", "mon:stdio"
+]
+
+[package.metadata.uefi-runner.copy]
+"boot.conf" = "EFI/BOOT/boot.conf"
