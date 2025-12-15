@@ -43,7 +43,8 @@ You can run your rust UEFI application through `cargo run` or test it throught `
 
 ## Configuration
 
-Configuration is done through a through a `[package.metadata.bootuefi]` table in the `Cargo.toml` of your project. The following options are available:
+Configuration is done through a `[package.metadata.uefi-runner]` table in the `Cargo.toml` of your project.
+The following options are available:
 
 ```toml
 [package.metadata.uefi-runner]
@@ -70,7 +71,7 @@ test-timeout = 300
 [package.metadata.uefi-runner.copy]
 "boot.conf" = "EFI/BOOT/boot.conf"
 "kernel.conf" = "EFI/BOOT/kernel.conf"
-(You can specify any number of them.)
+# (You can specify any number of them.)
 ```
 
 ## License
