@@ -48,6 +48,11 @@ The following options are available:
 
 ```toml
 [package.metadata.uefi-runner]
+# ESP root folder
+esp_root = "target/esp"
+
+# Specifies the destination for the built file as a relative path from esp_root
+file_path = "EFI/BOOT/BOOTX64.EFI"
 
 # The command to run qemu.
 # Set this to an absolute path if your qemu is not in your PATH
@@ -70,9 +75,27 @@ test-timeout = 300
 
 [package.metadata.uefi-runner.copy]
 "boot.conf" = "EFI/BOOT/boot.conf"
-"kernel.conf" = "EFI/BOOT/kernel.conf"
+"kernel.conf" = "kernel.conf"
 # (You can specify any number of them.)
 ```
+
+### Example
+
+Part of a project's specifications
+
+```toml
+esp_root = "../qemu/volume"
+file_path = "EFI/BOOT/BOOTX64.EFI"
+```
+
+Part of another project's specifications
+
+```toml
+esp_root = "../qemu/volume"
+file_path = "kernel.elf"
+```
+
+You can do something like the above.
 
 ## License
 

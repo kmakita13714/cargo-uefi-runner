@@ -6,6 +6,8 @@ use toml::Value;
 
 #[derive(Default, Debug)]
 pub struct Config {
+    pub esp_root: Option<String>,
+    pub file_path: Option<String>,
     pub qemu: Option<String>,
     pub bios: Option<String>,
     pub run_args: Option<Vec<String>>,
@@ -46,6 +48,8 @@ impl Config {
         let mut config: Config = Default::default();
         for (key, value) in metadata {
             match (key.as_str(), value.clone()) {
+                ("esp_root", Value::String(s)) => config.esp_root = Some(s),
+                ("file_path", Value::String(s)) => config.file_path = Some(s),
                 ("qemu", Value::String(s)) => config.qemu = Some(s),
                 ("bios", Value::String(s)) => config.bios = Some(s),
                 ("test-timeout", Value::Integer(i)) => {
@@ -113,6 +117,7 @@ impl Config {
         args.push(bios);
         args.push("-drive".into());
         args.push(format!("format=raw,file=fat:rw:{}", esp.display()));
+
         Ok(Profile {
             qemu,
             args,
